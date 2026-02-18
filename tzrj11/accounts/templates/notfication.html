@@ -1,0 +1,106 @@
+{% extends "mainbase.html" %}
+{% load static %}
+<!--head-->
+{% block title %}- الاشعارات{% endblock  %}
+{% block stylelink %}{% static 'css/notfications.css' %}{% endblock  %}
+<style>
+    .active {
+        border-bottom: 2px solid white;
+    }
+    
+    .activates {
+        border: 2px solid rgb(0, 119, 225);
+        background-color: rgb(171, 205, 235);
+        color: white;
+    }
+    
+    .notf-typeico {
+        padding: 1px;
+        text-align: center;
+        cursor: pointer;}
+</style>
+
+<!--body-->
+{% block content %}
+    <!-- الاشعارات -->
+    <div id="all-notfications" class="notfs">
+        
+        <div class="not-content">
+            <div class="content-1">
+                <img style="margin-left: 10px;" class="icon-img" src="{% static 'images/sla.png' %}" alt="">
+                <h2>غداً موعد تسليم السلة 3</h2>
+                <button class="view-icon">عرض السلة</button>
+            </div>
+            <br><hr>
+            <div class="content-2">
+                <button name="حذف" class="cho-icon"><img class="cho-img" src="{% static 'images/trash-solid.svg' %}" alt=""></button>
+                <button name="تذكير" class="cho-icon"><img class="cho-img" src="{% static 'images/stopwatch-solid.svg' %}" alt=""></button>
+                <h2 style="margin-right: 570px;">6:00am</h2>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="not-content">
+            <div class="content-1">
+                <img style="margin-left: 10px;" class="icon-img" src="{% static 'images/repos.jpg' %}" alt="">
+                <h2>تقرير شهر مارس</h2>
+                <button class="view-icon">عرض التقرير</button>
+            </div>
+            <br><hr>
+            <div class="content-2">
+                <button name="حذف" class="cho-icon"><img class="cho-img" src="{% static 'images/trash-solid.svg' %}" alt=""></button>
+                <button name="تذكير" class="cho-icon"><img class="cho-img" src="{% static 'images/stopwatch-solid.svg' %}" alt=""></button>
+                <h2 style="margin-right: 570px;">11:30pm</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- قائمة تصنيف الاشعارات -->
+    <div class="notf-type">
+        <div style="margin-top: 5px;" onclick="window.location.href='{% url 'notfication' %}'" class="notf-typeico" id="allNotfications">
+            <img class="nicon-img" src="{% static 'images/notfi.svg' %}" alt="">
+            <a class="content-link" href="{% url 'notfication' %}">كل الاشعارات</a>
+        </div>
+
+        <div onclick="window.location.href="{% url 'importantnot' %}"" class="notf-typeico" id="importantNotfications">
+            <img class="nicon-img" src="{% static 'images/important.svg' %}" alt="">
+            <a class="content-link" href="{% url "importantnot" %}">المهمة</a>
+        </div>
+        <br><hr><br>
+
+        <div onclick="window.location.href='{% url "setting" %}'" class="notf-typeico" id="settings">
+            <img style="margin-right: 25px;" class="nicon-img" src="{% static 'images/settingss.svg' %}" alt="">
+            <a class="content-link" href="{% url "setting" %}">الاعدادات</a>
+        </div>
+    </div>
+
+    {% endblock %}
+
+
+{% block script %}
+<script>
+    Function to add the 'activates' class to the current page link
+window.onload = function() {
+    var currentUrl = window.location.pathname.split("/").pop(); // Get the current page name
+    var links = document.querySelectorAll(".link"); // Select all the navigation links
+    var notficationTypes = document.querySelectorAll(".notf-typeico"); // Select all the notf-typeico divs
+
+    // Loop through all the links and check if the current URL matches
+    links.forEach(function(link) {
+        if (link.getAttribute("href") === currentUrl) {
+            link.classList.add("active"); // Add the 'active' class to the active link
+        }
+    });
+    notficationTypes.forEach(function(type) {
+        var linkHref = type.querySelector('a').getAttribute("href"); // Get the href attribute of the link inside the div
+        if (linkHref === currentUrl) {
+            type.classList.add("activates"); // Add the 'activates' class to the active notification type div
+        }
+    });
+};
+</script>
+
+
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "mainbase.html" %}
+{% load static %}
+{% block title %}عميل غير مكتمل{% endblock  %}
+{% block stylelink %}{% static 'css\clients.css' %}{% endblock  %}
+{% block content  %}
+<div class="client-page">
+<div class="page-content">
+    
+</div>
+
+<div class="client-type">
+
+    <div onclick="window.location.href='{% url 'new_clients' %}'" class="type-item">
+        <img class="nav-img" src="{% static 'images/news.svg' %}" alt=""> 
+        <a href="{% url 'new_clients' %}">جديد</a>
+    </div>
+
+    <div onclick="window.location.href='{% url 'client' %}'" class="type-item">
+        <img class="nav-img" src="{% static 'images/people.png' %}" alt=""> 
+        <a href="{% url 'client' %}">كل العملاء</a>
+    </div>
+
+    <div onclick="window.location.href='{% url 'incomplete_payments' %}'" class="type-item">
+        <img class="nav-img" src="{% static 'images/uncoou.svg' %}" alt=""> 
+        <a href="{% url 'incomplete_payments' %}">دفع غير مكتمل</a>
+    </div>
+
+    <div onclick="window.location.href='{% url 'complete_payments' %}'" class="type-item">
+        <img class="nav-img" src="{% static 'images/done.svg' %}" alt=""> 
+        <a href="{% url 'complete_payments' %}">دفع مكتمل</a>
+    </div>
+
+    <br>
+    <hr>
+
+    <div onclick="window.location.href='{% url 'host_client' %}'" class="type-item">
+        <img class="nav-img" src="{% static 'images/ess.svg' %}" alt=""> 
+        <a href="{% url 'host_client' %}">استضافة عميل</a>
+    </div>
+
+</div>
+</div>
+
+{% endblock %}

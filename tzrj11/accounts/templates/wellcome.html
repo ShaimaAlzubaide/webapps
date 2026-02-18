@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/wellcome.css' %}">
+    <title>خدمة المبيعات</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet">
+</head>
+<body class="sitebody">
+
+<div class="aqtion">
+  <div class="wellcome-text">
+    <h1 style="color: rgb(243, 199, 5)">مرحباً سلوى!</h1> 
+    <h3 style="color: rgb(97, 94, 94);">نحن هنا لخدمتك </h3>
+
+    <p style="color:rgb(97, 94, 94) ;">
+      شروط الخدمة:
+      <br>
+      -امتلاك حساب في شركة صرافة.
+      <br>
+      -ان تكون مندوب مبيعات لشركة تسوق 
+      <br> 
+      او لديك متجر لأي نوع من المبيعات .
+    </p>
+
+    <hr>
+    <button class="choss-btn">السابق</button>
+    <button onclick="window.location.href='{% url 'notfication' %}'" class="choss-btn">موافق</button>
+    <button class="choss-btn">الغاء</button>
+    <br><br><br><br><br>
+    <a style="color: rgba(0, 119, 255,4.5:1);text-align: right;" href="try.html">العودة الى الرئيسة</a>
+  </div>
+
+  <img class="wellcome-img" src="{% static 'images/wellcome.webp' %}" alt="">
+</div>
+</body>
+</html>
+

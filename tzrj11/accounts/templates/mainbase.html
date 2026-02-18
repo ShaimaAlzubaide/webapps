@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% block stylelink %}{% endblock  %}">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet">
+    <title>{% block title  %}خدمة المبيعات{% endblock  %}</title>
+
+   
+</head>
+
+<body>
+<div class="move_section">
+    <!-- روابط القائمة -->
+    <div class="move-itemo">
+        <div class="icons"><img class="icon-img" src="{% static 'images/noticon.png' %}" alt=""></div>
+        <a class="link" href="{% url 'notfication' %}">الاشعارات</a>
+    </div>
+    <div class="move-item">
+        <div class="icons"><img class="icon-img" src="{% static 'images/760887.png' %}" alt=""></div>
+        <a class="link" href="{% url "client" %}">العملاء</a>
+    </div>
+    <div class="move-item">
+        <div class="icons"><img class="icon-img" src="{% static 'images/sla.png' %}" alt=""></div>
+        <a class="link" href="{% url "sla" %}">السلات</a>
+    </div>
+    <div class="move-item">
+        <div class="icons"><img class="icon-img" src="{% static 'images/vi.png' %}" alt=""></div>
+        <a class="link" href="{% url "viewer" %}">التخفيضات</a>
+    </div>
+    <div class="move-item">
+        <div class="icons"><img class="icon-img" src="{% static 'images/repos.jpg' %}" alt=""></div>
+        <a class="link" href="{% url "reports" %}">التقارير</a>
+    </div>
+    <div class="move-item">
+        <div class="icons"><img class="icon-img" src="{% static 'images/accont.jpg' %}" alt=""></div>
+        <a class="link" href="reports">حساب المستخدم</a>
+    </div>
+</div>
+<div class="content_page">
+{% block content %}{% endblock %}
+</div>
+
+{% block script %} {% endblock  %} 
+
+</body>
+</html>

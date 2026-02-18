@@ -1,0 +1,25 @@
+.blue-background-text {
+    background-color: #007bff; /* خلفية زرقاء */
+    color: white; /* نص أبيض */
+    padding: 5px 10px; /* إضافة بعض الحشو للنص */
+    border-radius: 5px; /* إضافة زوايا دائرية */
+    display: inline-block; /* لجعل النص مثل الزر */
+}
+
+/* تنسيق خاص للهاتف */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        margin: 20px auto;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    input, button {
+        font-size: 14px;
+    }
+}
+

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طلب خدمة</title>
+    <style>
+        /* تنسيق الخلفية الزجاجية */
+        body {
+            font-family: "Zain", sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            background-size: cover;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .back-button {
+            padding: 10px 20px;
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            position: fixed;
+            bottom: 20px; /* يتم تحديد المسافة من الأسفل */
+            right: 20px; /* يتم تحديد المسافة من اليمين */
+            transition: background-color 0.3s;
+        }
+
+        
+        .container {
+            display: flex;
+            flex-direction: row;
+            width: 80%;
+            height: 80%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            color: #fff;
+        }
+
+        .form-container {
+            width: 50%;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.2);
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+
+        .orders-container {
+            width: 50%;
+            background-color: rgba(247, 249, 252, 0.6);
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+
+        /* الأزرار */
+        .button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 20px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .file-input {
+            margin-top: 20px;
+        }
+
+        /* جدول الطلبات */
+        .orders-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .order-item {
+            background: #ffffff;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .order-item h4 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .order-item p {
+            margin: 10px 0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .order-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .order-actions button {
+            padding: 5px 15px;
+            border-radius: 5px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .order-actions button:hover {
+            background-color: #218838;
+        }
+
+        .order-actions .delete {
+            background-color: #dc3545;
+        }
+
+        .order-actions .delete:hover {
+            background-color: #c82333;
+        }
+
+        /* تباعد أكبر بين الحقول */
+        input, textarea, select {
+            margin-bottom: 15px;
+        }
+
+        /* زر العودة */
+        .back-button {
+            padding: 10px 20px;
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 20px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #5a6268;
+        }
+
+        /* جعل زر العودة في أسفل الصفحة */
+        .back-button-container {
+            margin-top: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* تنسيق الرسالة بعد الإرسال */
+        .message-container {
+            display: none;
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            font-size: 14px;
+            color: #333;
+        }
+
+        /* الرسالة عندما تظهر */
+        .message-container.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- قسم إضافة الطلب -->
+        <div class="form-container">
+           <h2>إضافة طلب</h2>
+            <form action="#" method="post" enctype="multipart/form-data" >
+                {% csrf_token %}
+                <input type="text" name="company_name" placeholder="اسم الشركة" required><br>
+                <input type="text" name="service_name" placeholder="موقع استلام الطلب" required><br>
+                <textarea name="description" rows="4" placeholder="وصف الطلب" required></textarea><br>
+                <div class="file-input">
+                    <label for="file">إرفاق صورة:</label>
+                    <input type="file" name="file" id="file" accept="image/*" required><br>
+                </div>
+                <button type="submit" class="button" id="saveButton">حفظ الطلب</button>
+            </form>
+        </div>
+
+        <!-- قسم عرض الطلبيات -->
+        <div class="orders-container">
+            <h2>الطلبيات</h2>
+            <ul class="orders-list" id="ordersList">
+                <!-- سيتم إضافة الطلبات هنا باستخدام JavaScript -->
+            </ul>
+            <button class="button" id="sendOrdersBtn">إرسال الطلبيات</button>
+        </div>
+    </div>
+
+    <!-- رسالة تم إرسال الطلبيات -->
+    <div class="message-container" id="messageContainer">
+        تم إرسال الطلبيات بنجاح!
+    </div>
+
+    <!-- زر العودة في أسفل الصفحة -->
+  
+    <a href="javascript:history.back()" class="back-button">عودة</a>
+
+
+
+    <script>
+        // نموذج الطلب
+        const serviceForm = document.getElementById('serviceForm');
+        const saveButton = document.getElementById('saveButton');
+        const ordersList = document.getElementById('ordersList');
+        const sendOrdersBtn = document.getElementById('sendOrdersBtn');
+        const messageContainer = document.getElementById('messageContainer');
+
+        // تخزين الطلبات في مصفوفة
+        let orders = [];
+
+        // عند إرسال الطلب
+        serviceForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // الحصول على قيم الحقول
+            const companyName = serviceForm.company_name.value;
+            const serviceName = serviceForm.service_name.value;
+            const description = serviceForm.description.value;
+            const file = serviceForm.file.files[0];
+
+            // إضافة الطلب إلى المصفوفة
+            const newOrder = {
+                companyName,
+                serviceName,
+                description,
+                file,
+            };
+
+            orders.push(newOrder);
+            addOrderToUI(newOrder);
+            serviceForm.reset();
+        });
+
+        // إضافة الطلب إلى واجهة المستخدم
+        function addOrderToUI(order) {
+            const orderItem = document.createElement('li');
+            orderItem.classList.add('order-item');
+            
+            orderItem.innerHTML = `
+                <h4>${order.companyName}</h4>
+                <p><strong>موقع استلام الطلب:</strong> ${order.serviceName}</p>
+                <p><strong>وصف الطلب:</strong> ${order.description}</p>
+                <p><strong>الصورة:</strong> <img src="${URL.createObjectURL(order.file)}" alt="الصورة" width="50"></p>
+                <div class="order-actions">
+                    <button class="edit" onclick="editOrder(${orders.length - 1})">تعديل</button>
+                    <button class="delete" onclick="deleteOrder(${orders.length - 1})">حذف</button>
+                </div>
+            `;
+
+            ordersList.appendChild(orderItem);
+        }
+
+        // تعديل الطلب
+        function editOrder(index) {
+            const order = orders[index];
+            serviceForm.company_name.value = order.companyName;
+            serviceForm.service_name.value = order.serviceName;
+            serviceForm.description.value = order.description;
+            // لا يمكن تعديل الملف مباشرة، فإما إعادة رفعه أو تجاهله
+
+            // حذف الطلب القديم
+            deleteOrder(index);
+        }
+
+        // حذف الطلب
+        function deleteOrder(index) {
+            orders.splice(index, 1);
+            renderOrders();
+        }
+
+        // إعادة عرض الطلبيات في واجهة المستخدم
+        function renderOrders() {
+            ordersList.innerHTML = '';
+            orders.forEach((order, index) => addOrderToUI(order));
+        }
+
+        // إرسال الطلبيات
+        sendOrdersBtn.addEventListener('click', function() {
+            // إظهار الرسالة بعد إرسال الطلبيات
+            messageContainer.classList.add('show');
+
+            // إخفاء الرسالة بعد 3 ثواني
+            setTimeout(function() {
+                messageContainer.classList.remove('show');
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
+
+       

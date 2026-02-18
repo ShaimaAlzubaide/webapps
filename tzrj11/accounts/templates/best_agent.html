@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>مناديب  تم التسجيل لديهم</title>
+    <link rel="stylesheet" href="{% static "css\agent_list.css" %}">   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet">
+
+
+
+
+    <style>
+        .nav-icon {
+            cursor: pointer;
+        }
+
+        .nav-icon.active {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="list-page">
+        <div class="content">
+            <!-- عرض المناديب -->
+            <div class="row">
+                <div class="agent-card">
+                    <input type="text" id="name" name="name" class="form-control" placeholder="ادخل اسم المندوب" required>
+                </div>
+               
+
+
+            </div>
+
+            <a href="javascript:history.back()" class="back-button">⬅ العودة</a>
+        </div>
+
+        <div class="navi">
+            <div class="nav-icon" onclick="window.location.href='{% url 'agent_list' %}'">
+                <img class="img" src="{% static 'images/rectangle-list-regular.svg' %}" alt="قائمة">
+                <a style="margin-left: 40px;" href="{% url 'agent_list' %}">قائمة المناديب</a>
+            </div>
+            <div class="nav-icon" onclick="window.location.href='{% url 'best_agent' %}'">
+                <img class="img" src="{% static 'images/truck-fast-solid (1).svg' %}" alt="">
+                <a href="{% url 'best_agent' %}">زبون لديه</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const currentPath = window.location.pathname.split('/').pop();
+        document.querySelectorAll('.nav-icon').forEach(navIcon => {
+            const link = navIcon.querySelector('a');
+            const linkHref = link.getAttribute('href');
+
+            if (linkHref === currentPath) {
+                navIcon.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>

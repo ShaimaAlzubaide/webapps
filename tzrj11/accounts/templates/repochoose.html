@@ -1,0 +1,216 @@
+{% extends "mainbase.html" %}
+{% load static %}
+{% block title %}البحث عن تقرير{% endblock %}
+{% block stylelink %}{% static 'css/reports.css' %}{% endblock %}
+    <style>
+        /* Style for the active page link */
+        .active {
+            border-bottom: 2px solid white; /* Customize color and thickness */
+        }
+
+        /* Background color for active divs */
+        .activates {
+          border: 2px solid rgb(0, 119, 225);
+            background-color:rgb(171, 205, 235);
+            color: white; /* Change text color to white for visibility */
+        }
+
+        /* General styles for the notf-typeico div */
+        .notf-typeico {
+            padding: 1px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+
+
+        
+    </style>
+
+
+<hr>
+{% block content  %}
+
+<!--<div class="content_page">
+     All notifications section -->
+    
+      <div class="repo_list"> 
+            <div class="container">
+               
+                <button class="btn" onclick="showInterface('weekly')">التقارير الأسبوعية</button>
+                <button class="btn" onclick="showInterface('monthly')">التقارير الشهرية</button>
+                <button class="btn" onclick="showInterface('yearly')">التقارير السنوية</button>
+                
+                <div id="interface" class="report-content">
+                  <p>يرجى اختيار نوع التقرير لعرض البيانات.</p>
+                </div>
+              </div>
+           
+            </div>
+ 
+
+
+<!-- Navigation to move between notifications -->
+<div class="notf-type">
+  <div style="margin-top: 5px;" onclick="window.location.href='{% url "reports" %}'" class="notf-typeico" id="allNotfications">
+      <img  class="nicon-img" src="{% static "images/calendar-regular.svg" %}" alt="">
+ 
+      <a  class="content-link" href="{% url "reports" %}">التقارير الحالية</a>
+  </div>
+  <br>
+  <hr>
+  <div onclick="window.location.href='{% url "repochoose"  %}'" class="notf-typeico" id="importantNotfications">
+      <img  class="nicon-img" src="{% static "images/loupe.png" %}" alt="">
+
+      <a  class="content-link" href="{% url "repochoose" %}">اختيار التقرير</a>
+  </div>
+ 
+
+  
+</div></div>
+{% endblock  %}
+{% block script %}
+<script>
+  // Function to add the 'activates' class to the current page link
+  window.onload = function() {
+      var currentUrl = window.location.pathname.split("/").pop(); // Get the current page name
+      var links = document.querySelectorAll(".link"); // Select all the navigation links
+      var notficationTypes = document.querySelectorAll(".notf-typeico"); // Select all the notf-typeico divs
+  
+      // Loop through all the links and check if the current URL matches
+      links.forEach(function(link) {
+          if (link.getAttribute("href") === currentUrl) {
+              link.classList.add("active"); // Add the 'active' class to the active link
+          }
+      });
+      notficationTypes.forEach(function(type) {
+          var linkHref = type.querySelector('a').getAttribute("href"); // Get the href attribute of the link inside the div
+          if (linkHref === currentUrl) {
+              type.classList.add("activates"); // Add the 'activates' class to the active notification type div
+          }
+      });};
+      function showInterface(type) {
+            let interfaceDiv = document.getElementById('interface');
+            if (type === 'monthly') {
+              interfaceDiv.innerHTML = `
+                <h3>التقارير الشهرية</h3>
+                <label for="monthSelect">اختر الشهر:</label>
+                <select id="monthSelect">
+                  <option value="">-- اختر الشهر --</option>
+                  <option value="1">يناير</option>
+                  <option value="2">فبراير</option>
+                  <option value="3">مارس</option>
+                  <option value="4">أبريل</option>
+                  <option value="5">مايو</option>
+                  <option value="6">يونيو</option>
+                  <option value="7">يوليو</option>
+                  <option value="8">أغسطس</option>
+                  <option value="9">سبتمبر</option>
+                  <option value="10">أكتوبر</option>
+                  <option value="11">نوفمبر</option>
+                  <option value="12">ديسمبر</option>
+                </select>
+                <br>
+                <button class="btn" onclick="fetchMonthlyReport()">عرض التقرير</button>
+                <div id="monthlyReportResult" style="margin-top:20px;"></div>
+                <br>
+                <button class="btn" onclick="goBack()">عودة</button>
+              `;
+            } else if (type === 'weekly') {
+              interfaceDiv.innerHTML = `
+                <h3>التقارير الأسبوعية</h3>
+                <label for="weekSelect">اختر الأسبوع:</label>
+                <select id="weekSelect">
+                  <option value="">-- اختر الأسبوع --</option>
+                  <option value="1">الأسبوع الأول</option>
+                  <option value="2">الأسبوع الثاني</option>
+                  <option value="3">الأسبوع الثالث</option>
+                  <option value="4">الأسبوع الرابع</option>
+                </select>
+                <br>
+                <button class="btn" onclick="fetchWeeklyReport()">عرض التقرير</button>
+                <div id="weeklyReportResult" style="margin-top:20px;"></div>
+                <br>
+                <button class="btn" onclick="goBack()">عودة</button>
+              `;
+            } else if (type === 'yearly') {
+              interfaceDiv.innerHTML = `
+                <h3>التقارير السنوية</h3>
+                <label for="yearSelect">اختر السنة:</label>
+                <select id="yearSelect">
+                  <option value="">-- اختر السنة --</option>
+                  <option value="2023">2023</option>
+                  <option value="2022">2022</option>
+                  <option value="2021">2021</option>
+                  <!-- يمكن إضافة سنوات أخرى -->
+                </select>
+                <br>
+                <button class="btn" onclick="fetchYearlyReport()">عرض التقرير</button>
+                <div id="yearlyReportResult" style="margin-top:20px;"></div>
+                <br>
+                <button class="btn" onclick="goBack()">عودة</button>
+              `;
+            } else {
+              interfaceDiv.innerHTML = `<p>يرجى اختيار نوع التقرير لعرض البيانات.</p>`;
+            }
+          }
+          
+          function fetchMonthlyReport() {
+            let month = document.getElementById('monthSelect').value;
+            let resultDiv = document.getElementById('monthlyReportResult');
+            if (month === "") {
+              resultDiv.innerHTML = `<p style="color:red;">الرجاء اختيار الشهر.</p>`;
+              return;
+            }
+            // استبدل هذا القسم بجلب البيانات من قاعدة البيانات باستخدام AJAX أو Fetch API
+            resultDiv.innerHTML = `<p>عرض تقرير شهر ${month} (هذه بيانات افتراضية من قاعدة البيانات).</p>`;
+          }
+          
+          function fetchWeeklyReport() {
+            let week = document.getElementById('weekSelect').value;
+            let resultDiv = document.getElementById('weeklyReportResult');
+            if (week === "") {
+              resultDiv.innerHTML = `<p style="color:red;">الرجاء اختيار الأسبوع.</p>`;
+              return;
+            }
+            // هنا يمكنك استبدال البيانات الافتراضية بجلب بيانات التقارير اليومية من قاعدة البيانات
+            resultDiv.innerHTML = `
+              <h4>تفاصيل تقارير الأسبوع ${week}:</h4>
+              <p>اليوم الأول: تفاصيل التقرير...</p>
+              <p>اليوم الثاني: تفاصيل التقرير...</p>
+              <p>اليوم الثالث: تفاصيل التقرير...</p>
+              <p>اليوم الرابع: تفاصيل التقرير...</p>
+              <p>اليوم الخامس: تفاصيل التقرير...</p>
+              <p>اليوم السادس: تفاصيل التقرير...</p>
+              <p>اليوم السابع: تفاصيل التقرير...</p>
+            `;
+          }
+          
+          function fetchYearlyReport() {
+            let year = document.getElementById('yearSelect').value;
+            let resultDiv = document.getElementById('yearlyReportResult');
+            if (year === "") {
+              resultDiv.innerHTML = `<p style="color:red;">الرجاء اختيار السنة.</p>`;
+              return;
+            }
+            // استبدل هذا القسم بجلب البيانات من قاعدة البيانات للسنة المحددة
+            resultDiv.innerHTML = `<p>عرض تقرير سنة ${year} (هذه بيانات افتراضية من قاعدة البيانات).</p>`;
+          }
+          
+          function goBack() {
+            document.getElementById('interface').innerHTML = `<p>يرجى اختيار نوع التقرير لعرض البيانات.</p>`;
+          }
+  
+  
+  
+  
+  </script>
+  
+  
+
+
+
+
+
+{% endblock  %}
+

@@ -1,0 +1,86 @@
+{% extends "mainbase.html" %}
+{% load static %}
+<!--head-->
+{% block title %}- الاشعارات{% endblock  %}
+{% block stylelink %}{% static 'css\setting.css' %}{% endblock  %}
+<style>
+    .active {
+        border-bottom: 2px solid white;
+    }
+    
+    .activates {
+        border: 2px solid rgb(0, 119, 225);
+        background-color: rgb(171, 205, 235);
+        color: white;
+    }
+    
+    .notf-typeico {
+        padding: 1px;
+        text-align: center;
+        cursor: pointer;}
+</style>
+
+<!--body-->
+{% block content %}
+
+
+    <div style="border: 1px solid rgb(0,119,225); border-radius: 30px;text-align: start;" class="notfs">
+        <label style="font-size: 20px;margin-right: 10px;color: rgb(0,119,225);" for="">ما هي الاشعارات التي تعتبرهاا مهمة؟</label>
+        <br>
+      <input style="margin-right: 25px;margin-top: 20px;" type="radio" name="تأخر الدفع">
+      <label style="margin-right: 10px;" for="">تأخر الدفع </label>
+      <br>
+      <input style="margin-right: 25px;margin-top: 20px;" type="radio" name="تقرير">
+      <label style="margin-right: 10px; " for="">إظهار تقرير</label>
+      <br>
+      <input style="margin-right: 25px;margin-top: 20px;" type="radio" name="تأخر الدفع">
+      <label style="margin-right: 10px; margin-top: 20px;" for="">مواعيد تسليم الطلبات</label>
+      <br>
+      <input style="margin-right: 25px;margin-top: 20px;" type="radio" name="تأخر الدفع">
+      <label style="margin-right: 10px;margin-top: 20px;" for="">مواعيد دفع الطلبات</label>
+      <br>
+      <br>
+      <label style="font-size: 20px;margin-right: 10px;color: rgb(0,119,225);" for="">مانوع ظهور الاشعارات:</label>
+      <br>
+      <input style="margin-right: 25px;margin-top: 20px;" type="radio" name="تأخر الدفع">
+      <label style="margin-right: 10px;" for="">دائم</label>
+      <br>
+      <input style="margin-right: 25px;margin-top: 20px;" type="radio" name="تقرير">
+      <label style="margin-right: 10px; " for="">مؤقت</label>
+      <br>
+      <input style="margin-right: 25px;margin-top: 20px;" type="radio" name="تأخر الدفع">
+      <label style="margin-right: 10px; margin-top: 20px;" for="">دائم الى ان تتم القراءة</label>
+      <br>
+      <button style="margin-right: 850px; width: 70px;height: 35px;border-radius: 50px;color: white;background-color: rgb(0,119,225);margin-top: 0px;font-size: 15px;font-family: 'Zain', sans-serif;border:2px solid black;border-radius: 10px">تم</button>
+      <button style="margin-right: 10px;width: 70px;height: 35px;border-radius: 50px;color: white;background-color: rgb(0,119,225);margin-top: 0px;font-size: 15px;font-family: 'Zain', sans-serif;border: 2px solid black;border-radius: 10px">الغاء</button>
+    
+    
+    
+    </div>
+
+
+
+
+
+
+<!-- قائمة تصنيف الاشعارات -->
+<div class="notf-type">
+   
+    <div  onclick="window.location.href='{% url 'notfication' %}'" class="notf-typeico" id="allNotfications">
+        <img class="nicon-img" src="{% static 'images/notfi.svg' %}" alt="">
+        <a class="content-link" href="{% url 'notfication' %}">كل الاشعارات</a>
+    </div>
+
+    <div onclick="window.location.href='{% url "importantnot" %}'" class="notf-typeico" id="importantNotfications">
+        <img class="nicon-img" src="{% static 'images/important.svg' %}" alt="">
+        <a class="content-link" href="{% url "importantnot" %}">المهمة</a>
+    </div>
+   <hr>
+
+    <div onclick="window.location.href='{% url "setting" %}'" class="notf-typeico" id="settings">
+        <img style="margin-right: 25px;" class="nicon-img" src="{% static 'images/settingss.svg' %}" alt="">
+        <a class="content-link" href="{% url "setting" %}">الاعدادات</a>
+    </div>
+</div>
+
+{% endblock %}

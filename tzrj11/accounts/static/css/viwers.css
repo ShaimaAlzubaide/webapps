@@ -1,0 +1,181 @@
+*{
+    margin: 0;
+    padding: 0;
+
+}
+body,html{
+    background-color: white;
+    font-family: "Zain", sans-serif;
+    direction: rtl;
+    text-align: center;
+    
+    }
+    .move_section{
+        display: flex;
+      background-color: rgb(0, 119, 225);
+      width: 1358px;
+      height: 200px;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+      border: none;
+
+     
+    }
+    .icons{
+width: 60px;
+height: 60px;
+background-color: white;
+border: 0;
+border-radius: 50px;
+margin: 30px;
+align-content: center;
+    }
+    .icon-img{
+        width: 40px;
+        height: 45px;
+
+    }
+    .move-item{
+margin-right: 70px;
+
+
+    }
+    .move-itemo{
+        margin-right: 120px;
+            }       
+
+    .link{
+color: white; 
+text-decoration: none; 
+font-size: 20px; 
+display: block;
+margin-top: 0;
+padding-top: 0; }
+
+.viewer_list{
+    background-color: white ;
+    margin:20px;
+    width: 1500px;;
+    height:800px;
+    text-align: center;
+    font-size:15px;
+    margin: 0;
+
+}
+h1{
+margin:20px;
+background-color:lightyellow;
+
+margin:40px;
+}
+.container {
+   
+
+    margin-bottom: 30px;
+  
+}
+
+.offer {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    width: 200px;
+    height: 300px;
+    box-shadow: 0 10px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    text-align: center;
+    margin-right: 15px;
+    border: 1px solid rgb(134, 134, 134);
+    margin-top: 5px;
+}
+.noffer{
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    width: 200px;
+    height: 300px;
+    box-shadow: 0 10px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    text-align: center;
+    margin-right: 15px;
+    border: 1px solid rgb(134, 134, 134);
+    margin-top: 5px;
+
+
+
+
+}
+
+
+
+.offer h3 {
+    margin-top: 0;
+}
+
+.table-container {
+    display: none;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.add-offer-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color:white;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+
+.close-btn {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    cursor: pointer;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label,
+form input,
+form select,
+form button {
+    margin: 10px 0;
+}
+
+form button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+form button:hover {
+    background-color: #218838;
+}
+.of-img{
+width: 150px;
+height: 150px;
+}

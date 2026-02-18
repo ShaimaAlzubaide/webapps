@@ -1,0 +1,136 @@
+{% extends "mainbase.html" %}
+{% load static %}
+{% block title %}استضافة عميل{% endblock %}
+{% block stylelink %}{% static 'css/ess.css' %}{% endblock %}
+
+<style>
+    .active {
+        border-bottom: 2px solid white;
+    }
+
+    .activates {
+        border: 2px solid rgb(0, 119, 225);
+        background-color: rgb(171, 205, 235);
+        color: white;
+    }
+
+    .notf-typeico {
+        padding: 1px;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    #mapModal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        justify-content: center;
+        align-items: center;
+    }
+
+    #mapContainer {
+        position: relative;
+        width: 80%;
+        height: 80%;
+        background-color: white;
+    }
+
+    #closeBtn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: red;
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .connect {
+        display: inline-block;
+        cursor: pointer;
+        text-align: center;
+    }
+</style>
+
+{% block content %}
+<div class="client-page">
+    <div class="page-content">
+        <div style="margin-right:350px" class="connect" onclick="openWhatsApp()">
+            <img class="connect-img" src="{% static 'images/wats.png' %}" alt="">
+            <a class="connect-link">واتس آب</a>
+        </div>
+        <div style="margin-right:50px" class="connect" onclick="openInstagram()">
+            <img class="connect-img" src="{% static 'images/instgram.jpg' %}" alt="">
+            <a class="connect-link">انستقرام</a>
+        </div>
+    </div>
+
+    <div class="client-type">
+        <div onclick="window.location.href='{% url 'new_clients' %}'" class="type-item">
+            <img class="nav-img" src="{% static 'images/news.svg' %}" alt="">
+            <a href="{% url 'new_clients' %}">جديد</a>
+        </div>
+
+        <div onclick="window.location.href='{% url 'client' %}'" class="type-item">
+            <img class="nav-img" src="{% static 'images/people.png' %}" alt="">
+            <a href="{% url 'client' %}">كل العملاء</a>
+        </div>
+
+        <div onclick="window.location.href='{% url 'incomplete_payments' %}'" class="type-item">
+            <img class="nav-img" src="{% static 'images/uncoou.svg' %}" alt="">
+            <a href="{% url 'incomplete_payments' %}">دفع غير مكتمل</a>
+        </div>
+
+        <div onclick="window.location.href='{% url 'complete_payments' %}'" class="type-item">
+            <img class="nav-img" src="{% static 'images/done.svg' %}" alt="">
+            <a href="{% url 'complete_payments' %}">دفع مكتمل</a>
+        </div>
+
+        <br>
+        <hr>
+
+        <div onclick="window.location.href='{% url 'host_client' %}'" class="type-item">
+            <img class="nav-img" src="{% static 'images/ess.svg' %}" alt="">
+            <a href="{% url 'host_client' %}">استضافة عميل</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    window.onload = function () {
+        var currentUrl = window.location.pathname.split("/").pop();
+        var links = document.querySelectorAll(".link");
+        var clientTypes = document.querySelectorAll(".type-item");
+
+        links.forEach(function (link) {
+            if (link.getAttribute("href") === currentUrl) {
+                link.classList.add("active");
+            }
+        });
+
+        clientTypes.forEach(function (type) {
+            var linkHref = type.querySelector('a').getAttribute("href");
+            if (linkHref === currentUrl) {
+                type.classList.add("activates");
+            }
+        });
+    };
+
+    function openWhatsApp() {
+        const message = encodeURIComponent("مرحبا، ألق نظرة على هذا الموقع: https://YOUR_SITE_LINK_HERE");
+        const whatsappUrl = `https://wa.me/?text=${message}`;
+        window.open(whatsappUrl, '_blank');
+    }
+
+    function openInstagram() {
+        window.open("https://www.instagram.com/", "_blank");
+    }
+</script>
+{% endblock %}

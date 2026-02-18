@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حول منصتنا</title>
+    
+    <!-- رابط مكتبة الأيقونات الحديثة FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700&display=swap');
+        
+        body {
+            font-family: "Zain", sans-serif;
+            margin: 0;
+            padding: 0;
+            background:white;
+            color: #fff;
+            text-align: center;
+            font-family: "Zain", sans-serif;
+
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: center;
+            padding: 15px;
+            background-color:rgb(0,119,225);
+            backdrop-filter: blur(10px);
+            margin: 0px;
+            max-width: 1400px;
+      
+        }
+        
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 10px 15px;
+            border-radius: 20px;
+            transition: 0.3s;
+            font-size: 18px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar a:hover, .navbar .active {
+            background: #0a0f24;
+            transform: scale(1.1);
+        }
+
+        .navbar a i {
+            margin-left: 8px;
+        }
+
+        /* تميز الرابط النشط "حول" */
+        .navbar a.active {
+            background: #0a0f24;
+            color: #fff;
+            font-weight: bold;
+            transform: scale(1.1);
+        }
+        
+        /* تصميم القوائم المنسدلة الحديثة */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            color: black;
+            min-width: 250px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: right;
+            top: 50px;
+            right: 0;
+            transition: all 0.3s ease-in-out;
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .dropdown-content a, .dropdown-content p {
+            display: block;
+            color: black;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        
+        .dropdown-content a:hover {
+            background: rgb(230, 230, 230);
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(10px);
+        }
+        
+        /* تأثير على الأزرار في النوافذ المنسدلة */
+        .dropdown-content a i {
+            margin-left: 10px;
+            font-size: 20px;
+            color: #00aaff;
+        }
+        
+        .container {
+            width: 1358px;
+            height:420px;
+            text-align: center;
+            margin-top: 0px;
+            background-color:rgb(0,119,225);
+            align-items: center;
+
+        }
+        
+        h1 {
+            font-size: 36px;
+            margin-buttom: 60px;
+            color:white;
+        }
+        
+        p {
+            font-size: 18px;
+            line-height: 1.8;
+            font-weight:600;
+        }
+        
+        .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 40px;
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    border-radius: 50px;
+    position: relative;
+    overflow: hidden;
+    background-color:rgb(18, 35, 54) ;
+    color:white;
+    backdrop-filter: blur(10px);
+    transition: all 0.4s ease-in-out;
+    border: 2px solid white;
+}
+        
+.btn:hover {
+    color:black;
+    transform: translateY(-5px);
+    background: white;
+    box-shadow: 0 0 25px rgba(6, 25, 133, 0.8), 0 0 50px rgba(6, 3, 211, 0.8);
+    border-color: black;
+  
+}
+/* تشغيل اللمعة عند التمرير */
+.btn:hover::before {
+    opacity: 1;
+    color:black;
+}
+/* تأثير عند الضغط */
+.btn:active {
+    transform: scale(1.92);
+    box-shadow: 0 0 20px rgb(0, 54, 116), 0 0 40px rgba(1, 54, 116, 0.6);
+    background-color:white;
+    color:black;
+}
+/* نبض خفيف */
+@keyframes pulse {
+    0% { box-shadow: 0 0 10px rgba(0, 119, 255, 0.4); }
+    50% { box-shadow: 0 0 20px rgba(0, 119, 255, 0.7); }
+    100% { box-shadow: 0 0 10px rgba(0, 119, 255, 0.4); }
+}
+
+
+
+
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="{% url 'home' %}" class="{% if request.path == '/' %}active{% endif %}">
+            <i class="fas fa-home"></i> الرئيسية
+        
+        </a>
+        <a href="{% url 'about' %}" class="active">
+            <i class="fas fa-info-circle"></i> حول
+        </a>
+        
+        <!-- قائمة الخدمات -->
+        <div class="dropdown">
+            <a href="#"><i class="fas fa-cogs"></i> الخدمات</a>
+            <div class="dropdown-content">
+                <a href="#"> إدارة الطلبات <i class="fas fa-box"></i></a>
+                <a href="#"> تتبع الشحنات <i class="fas fa-truck-moving"></i></a>
+                <a href="#"> تحليلات المبيعات <i class="fas fa-chart-line"></i></a>
+            </div>
+        </div>
+
+        <!-- قائمة فريقنا -->
+        <div class="dropdown">
+            <a href="#"><i class="fas fa-users"></i> فريقنا</a>
+            <div class="dropdown-content">
+                <a href="#"> المدير التنفيذي <i class="fas fa-briefcase"></i></a>
+                <a href="#"> فريق الدعم <i class="fas fa-headset"></i></a>
+                <a href="#"> قسم التقنية <i class="fas fa-tools"></i></a>
+            </div>
+        </div>
+
+        <!-- قائمة اتصل بنا -->
+        <div class="dropdown">
+            <a href="#"><i class="fas fa-phone-alt"></i> اتصل بنا</a>
+            <div class="dropdown-content">
+                <p><i class="fab fa-whatsapp"></i> واتساب: <a href="tel:+966500000000">+966 50 000 0000</a></p>
+                <p><i class="fab fa-facebook-f"></i> فيسبوك: <a href="https://www.facebook.com" target="_blank">facebook.com/yourpage</a></p>
+                <p><i class="fab fa-twitter"></i> تويتر: <a href="https://twitter.com" target="_blank">twitter.com/yourpage</a></p>
+                <p><i class="fab fa-instagram"></i> إنستغرام: <a href="https://instagram.com" target="_blank">instagram.com/yourpage</a></p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <br><br>
+        <h1>...مرحبًا بك في منصتنا...</h1>
+       
+        <p style="color:white;margin-top:10px;">نحن هنا لمساعدة مناديب توصيل المبيعات في تحسين تجربتهم وتسهيل أعمالهم.<br> نوفر لك أدوات متقدمة لإدارة الطلبات، تتبع الشحنات، والتواصل الفعال مع العملاء بكل سهولة.</p>
+        <br>
+        <hr style="width:680px;">
+        <br>
+        <a  href="{% url 'role_selection' %}" class="btn">متابعة</a>
+    </div>
+    
+</body>
+</html>
+
